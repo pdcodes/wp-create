@@ -18,3 +18,5 @@ echo "CMS deploy completed;"
 terminus connection:set "$sitename".dev git
 
 echo "Connection mode set to git;"
+
+#cp ~/desktop/test.txt ~/Sites/$1/wp/wp-content/plugins/advanced-custom-fields-pro
