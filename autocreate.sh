@@ -29,4 +29,6 @@ git clone ssh://codeserver.dev."$UUID"@codeserver.dev."$UUID".drush.in:2222/~/re
 # 3) Local file management + manipulating directory structure;
 # 4) Getting plugins from remote destinations;
 
+# wget https://github.com/Automattic/_s/archive/master.zip
+
 
