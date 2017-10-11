@@ -1,22 +1,32 @@
 #!/bin/sh
 
-#pwd
-
-#echo "$1 just wrote a shell script."
-
-#echo "What is your name?"
-#read name
-#echo "$name"
-
+# First, name the site...
 echo "What is the name of the site you'd like to create?"
 read sitename
 
+# Get the site admin's email address...
+echo "What should we set the site email address to be?"
+read site_email
+
+# Create the site in Pantheon...
 terminus site:create --org Bluetext "$sitename" "$sitename" e8fe8550-1ab9-4964-8838-2b9abdccf4bf
 
-echo "CMS deploy completed;"
-
+# Setting connection mode to git...
 terminus connection:set "$sitename".dev git
 
-echo "Connection mode set to git;"
+# Running through install process...
+terminus remote:wp "$sitename".dev core install -- --title="$sitename" --admin_user=admin --admin_email="$site_email"
 
-#cp ~/desktop/test.txt ~/Sites/$1/wp/wp-content/plugins/advanced-custom-fields-pro
+# Getting the site ID of the newly created site...
+UUID=$(terminus site:lookup "$sitename")
+
+# Cloning the site down locally...
+git clone ssh://codeserver.dev."$UUID"@codeserver.dev."$UUID".drush.in:2222/~/repository.git "$sitename"
+
+# TODO
+# 1) Push commands for migrating changes back up to git repo;
+# 2) Approach for adding plugins, creating themes, enabling plugins, and pushing up changes again;
+# 3) Local file management + manipulating directory structure;
+# 4) Getting plugins from remote destinations;
+
+
