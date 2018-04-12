@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # First, name the site...
-echo "What is the name of the site you'd like to create?"
+echo "What is the name of the site you'd like to create? This name should be formatted in all lowercase characters with no spaces."
 read sitename
 
 # Get the site admin's email address...
@@ -22,6 +22,9 @@ UUID=$(terminus site:lookup "$sitename")
 
 # Cloning the site down locally...
 git clone ssh://codeserver.dev."$UUID"@codeserver.dev."$UUID".drush.in:2222/~/repository.git "$sitename"
+
+echo "You can now log in to your new website at the URL below:"
+echo "https://dev-"."$sitename"."pantheonsite.io/wp-login.php"
 
 # TODO
 # 1) Push commands for migrating changes back up to git repo;
