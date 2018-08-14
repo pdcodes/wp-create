@@ -24,7 +24,15 @@ UUID=$(terminus site:lookup "$sitename")
 git clone ssh://codeserver.dev."$UUID"@codeserver.dev."$UUID".drush.in:2222/~/repository.git "$sitename"
 
 echo "You can now log in to your new website at the URL below:"
-echo "https://dev-"."$sitename".".pantheonsite.io/wp-login.php"
+echo "https://dev-""$sitename"".pantheonsite.io/wp-login.php"
+
+cd "$sitename"
+
+mkdir html
+
+touch readme.txt
+
+sublime readme.txt
 
 # TODO
 # 1) Push commands for migrating changes back up to git repo;
