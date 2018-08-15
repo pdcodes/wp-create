@@ -72,16 +72,6 @@ wp-content/*
 !wp-content/plugins/
 !wp-content/themes/
 
-# Ignore all mu-plugins, plugins, and themes
-# unless explicitly whitelisted at the end of this file
-wp-content/mu-plugins/*
-wp-content/plugins/*
-wp-content/themes/*
-
-# Ignore all files starting with . or ~
-.*
-~*
-
 # Ignore node dependency directories (used by grunt)
 node_modules/
 

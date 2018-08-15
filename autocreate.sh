@@ -58,7 +58,7 @@ touch html/readme.txt
 
 git add .
 
-git commit -m ''$sitename'-002: Pushing up html directory;'
+git commit -m ''$sitename'-002: Pushing to Pantheon and Github remotes;'
 
 git push pantheon master
 
@@ -66,8 +66,9 @@ git push github master
 
 # sublime readme.txt
 
-echo "You can now log in to your new website at the URL below:"
+echo "You can now log in to your using the information below:"
 echo "https://dev-""$sitename"".pantheonsite.io/wp-login.php"
+echo 
 
 # TODO
 # 1) Push commands for migrating changes back up to git repo;
