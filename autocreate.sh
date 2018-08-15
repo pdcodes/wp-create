@@ -41,7 +41,7 @@ mv gitignore.txt .gitignore
 
 git add .gitignore
 
-git commit -m ''$sitename'-001: Overwriting pantheon gitignore file;'
+git commit -m ''$sitename'-001: Overwriting pantheon gitignore file.'
 
 # Creating a repo in github and pushing up a change...
 echo "Creating a repo in github."
@@ -58,7 +58,7 @@ touch html/readme.txt
 
 git add .
 
-git commit -m ''$sitename'-002: Pushing to Pantheon and Github remotes;'
+git commit -m ''$sitename'-002: Pushing to Pantheon and Github remotes.'
 
 git push pantheon master
 
