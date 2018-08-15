@@ -1,12 +1,16 @@
 #!/bin/sh
 
-# First, name the site...
+# First thing's first, let's get some info...
+echo "Hey there techy, let's build you a WP site! For starters, we need to get a bit of information."
 echo "What is the name of the site you'd like to create? This name should be formatted in all lowercase characters with no spaces."
 read sitename
 
 # Get the site admin's email address...
-echo "What should we set the site email address to be?"
+echo "Enter the site's desired admin email address:"
 read site_email
+
+echo "Enter your github username:"
+read githubusername
 
 # Create the site in Pantheon...
 terminus site:create --org Bluetext "$sitename" "$sitename" e8fe8550-1ab9-4964-8838-2b9abdccf4bf
@@ -41,8 +45,6 @@ git commit -m ''$sitename'-001: Overwriting pantheon gitignore file;'
 
 # Creating a repo in github and pushing up a change...
 echo "Creating a repo in github."
-echo "What is your Github username?"
-read githubusername
 
 curl -u "$githubusername" https://api.github.com/orgs/BluetextDC/repos -d '{"name":"'$sitename'"}'
 
