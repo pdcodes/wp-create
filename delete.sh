@@ -4,14 +4,17 @@
 echo "Enter the name of the site that you'd like to delete:"
 read $sitename
 
-rm -rf $sitename
+rm -rf "$sitename"
 
 terminus site:delete $sitename
 
 # DELETE /repos/:owner/:repo
 
-curl -u pdcodes --request DELETE https://api.github.com/repos/BluetextDC/wflow-test
+curl -u pdcodes --request DELETE https://api.github.com/repos/BluetextDC/$sitename
 
 # curl -u "$githubusername" https://api.github.com/orgs/BluetextDC/repos -d '{"name":"'$sitename'"}'
 
 # curl -u 'USER' https://api.github.com/user/repos -d '{"name":"REPO"}'
+
+# As one string...
+# rm -rf wflow-test; terminus site:delete wflow-test; curl -u pdcodes --request DELETE https://api.github.com/repos/BluetextDC/wflow-test

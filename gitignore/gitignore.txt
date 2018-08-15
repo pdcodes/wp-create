@@ -6,6 +6,8 @@
 /*
 !wp-content/
 !html/
+!composer.json
+!composer.lock
 
 # Ignore everything in the "wp-content" directory, except:
 # mu-plugins, plugins, and themes directories
@@ -41,6 +43,7 @@ wp-content/backups/
 # Avoid accidental modification of pantheon.upstream.yml in sites
 # created from this upstream
 pantheon.upstream.yml
+pantheon.yml
 
 # Packages #
 ############

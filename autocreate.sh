@@ -31,6 +31,21 @@ git clone ssh://codeserver.dev."$UUID"@codeserver.dev."$UUID".drush.in:2222/~/re
 echo "Moving into the new directory."
 cd "$sitename"
 
+# Creating a repo in github...
+echo "Creating a repo in github."
+
+curl -u "$githubusername" https://api.github.com/orgs/BluetextDC/repos -d '{"name":"'$sitename'"}'
+
+echo "Setting up our remotes."
+
+git remote rename origin pantheon
+
+git remote add github https://github.com/BluetextDC/"$sitename".git
+
+echo "Creating our branch for development."
+
+git checkout -b develop
+
 # Removing Pantheon's gitignore, and replacing it with our own...
 echo "Removing Pantheon's gitignore, and replacing it with our own."
 rm .gitignore
@@ -42,17 +57,6 @@ mv gitignore.txt .gitignore
 git add .gitignore
 
 git commit -m ''$sitename'-001: Overwriting pantheon gitignore file.'
-
-# Creating a repo in github and pushing up a change...
-echo "Creating a repo in github."
-
-curl -u "$githubusername" https://api.github.com/orgs/BluetextDC/repos -d '{"name":"'$sitename'"}'
-
-echo "Setting up our remotes."
-
-git remote rename origin pantheon
-
-git remote add github https://github.com/BluetextDC/"$sitename".git
 
 echo "Adding the html/ directory."
 
@@ -66,13 +70,19 @@ echo "Cleaning up the git cache."
 
 git rm -r --cached .
 
-git add .
+# git update-index --assume-unchanged .
 
-git commit -m ''$sitename'-002: Pushing to Pantheon and Github remotes.'
+git add -A
 
-git push pantheon master
+git commit -am ''$sitename'-002: Pushing only wp-content/ to Pantheon and Github remotes.'
 
-git push github master
+git push pantheon develop
+
+git push github develop
+
+
+
+# sed -i '' 's/PROJECTNAME/wflow-test/g' composer.json
 
 # sublime readme.txt
 
