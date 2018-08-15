@@ -1,16 +1,34 @@
-# WordPress #
-############
+##############################################################
+# Custom .gitignore logic for Bluetext site creation process #
+##############################################################
+
+# Ignore everything in the root except the "wp-content" directory.
+/*
+!wp-content/
+
+# Ignore everything in the "wp-content" directory, except:
+# mu-plugins, plugins, and themes directories
+wp-content/*
+!wp-content/mu-plugins/
+!wp-content/plugins/
+!wp-content/themes/
+
+# Ignore node dependency directories (used by grunt)
+node_modules/
+
+# Ignore Editor files
+*.sublime-project
+*.sublime-workspace
+*.komodoproject
+
+#################################
+# Base .gitignore from Pantheon #
+#################################
+
+# Standard Wordpress Files #
+############################
 wp-config-local.php
 wp-cli.local.yml
-wp-content/uploads
-wp-content/blogs.dir/
-wp-content/upgrade/
-wp-content/backup-db/
-wp-content/updraft/
-wp-content/backupwordpress-*/
-wp-content/managewp/backups/
-wp-content/advanced-cache.php
-wp-content/wp-cache-config.php
 sitemap.xml
 sitemap.xml.gz
 *.log
@@ -55,27 +73,5 @@ Thumbs.db
 
 # SASS #
 ##########
-.sass-cache
+*.sass-cache
 
-############################################################
-# Adding customizations for Bluetext site creation script. #
-############################################################
-
-# Ignore everything in the root except the "wp-content" directory.
-/*
-!wp-content/
-
-# Ignore everything in the "wp-content" directory, except:
-# mu-plugins, plugins, and themes directories
-wp-content/*
-!wp-content/mu-plugins/
-!wp-content/plugins/
-!wp-content/themes/
-
-# Ignore node dependency directories (used by grunt)
-node_modules/
-
-# Ignore Editor files
-*.sublime-project
-*.sublime-workspace
-*.komodoproject
