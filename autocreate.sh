@@ -66,9 +66,12 @@ git push github master
 
 # sublime readme.txt
 
+# Updating the WP admin password...
+terminus remote:wp "$sitename".dev -- user update "$site_email" --user_pass=Bluetext1 --skip-email
+
 echo "You can now log in to your using the information below:"
 echo "https://dev-""$sitename"".pantheonsite.io/wp-login.php"
-echo 
+echo "Password: Bluetext1"
 
 # TODO
 # 1) Push commands for migrating changes back up to git repo;
