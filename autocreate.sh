@@ -44,7 +44,7 @@ echo "Creating a repo in github."
 echo "What is your Github username?"
 read githubusername
 
-curl -u "$githubusername" https://api.github.com/orgs/BluetextDC/repos -d '{"name":"'$repo'"}'
+curl -u "$githubusername" https://api.github.com/orgs/BluetextDC/repos -d '{"name":"'$sitename'"}'
 
 git remote rename origin pantheon
 
