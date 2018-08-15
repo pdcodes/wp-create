@@ -64,7 +64,7 @@ rm -rf !("$friendlyname" | index.php)
 
 # Adding to base theme configuration...
 echo "Setting up the $friendlyname theme per Bluetext standard architecture."
-cd "friendlyname"
+cd "$friendlyname"
 mkdir fonts
 mkdir components
 mkdir scss
