@@ -35,81 +35,60 @@ echo "Moving into the new directory."
 cd "$sitename"
 
 # Creating a repo in github...
-echo "Creating a repo in github."
-
+echo "Creating a repo in github and setting up our remotes."
 curl -u "$githubusername" https://api.github.com/orgs/BluetextDC/repos -d '{"name":"'$sitename'"}'
-
-echo "Setting up our remotes."
-
 git remote rename origin pantheon
-
 git remote add github https://github.com/BluetextDC/"$sitename".git
 
-echo "Creating our branch for development."
+# Installing plugins via composer...
+echo "Copying composer.default.json and running composer install."
+cp ../composer/composer.default.json .
+mv composer.default.json composer.json
+eval "sed -i '' s/PROJECTNAME/$sitename/g ../composer/composer.json"
+composer install
 
+echo "Pushing changes to github."
+git add -A
+git commit -am ''$sitename'-001: Installing default plugins.'
+git push pantheon master
+git push github master 
+
+# Installing base theme...
+echo "Moving into the wp-content/themes directory."
+cd wp-content/themes
+echo "Generating _s base theme and removing everything else."
+underscores -n "$friendlyname" -d "Custom theme for $friendlyname website." -g "$sitename" -a "Bluetext <technology@bluetext.com>" -u "https://bluetext.com" -s -k
+shopt -s extglob && rm !($friendlyname || index.php)
+
+echo "Pushing changes to github."
+git add -A
+git commit -am ''$sitename'-002: Adding _s base theme.'
+git push pantheon master
+git push github master 
+
+# Setting up the develop branch...
+echo "Creating our branch for development."
 git checkout -b develop
 
 # Removing Pantheon's gitignore, and replacing it with our own...
 echo "Removing Pantheon's gitignore, and replacing it with our own."
 rm .gitignore
-
 cp ../gitignore/gitignore.txt .
-
 mv gitignore.txt .gitignore
-
 git add .gitignore
-
 git commit -m ''$sitename'-001: Overwriting pantheon gitignore file.'
 
 echo "Adding the html/ directory."
 
 mkdir html
-
 touch html/readme.txt
-
 echo "Add html source files and assets for prototyping here." > html/readme.txt
 
 echo "Cleaning up the git cache."
-
 git rm -r --cached .
-
-# git update-index --assume-unchanged .
-
 git add -A
-
 git commit -am ''$sitename'-002: Pushing only wp-content/ to Pantheon and Github remotes.'
-
 git push github develop
-
-# Installing plugins via composer...
-echo "Copying composer.default.json and running composer install."
-
-cp ../composer/composer.default.json .
-
-mv composer.default.json composer.json
-
-eval "sed -i '' s/PROJECTNAME/$sitename/g ../composer/composer.json"
-
-composer install
-
-echo "Pushing changes to github."
-
-git add -A
-
-git commit -am ''$sitename'-003: Installing default plugins.'
-
-git push github develop 
-
-echo "Moving into the wp-content/themes directory."
-cd wp-content/themes
-
-underscores -n "$friendlyname" -d "Custom theme for $friendlyname website." -g "$sitename" -a "Bluetext <technology@bluetext.com>" -u "https://bluetext.com"
-
-git add -A
-
-git commit -am ''$sitename'-004: Adding _s base theme.'
-
-git push github develop 
 
 # sublime readme.txt
 
