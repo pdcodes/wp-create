@@ -1,0 +1,91 @@
+# WordPress #
+############
+wp-config-local.php
+wp-cli.local.yml
+wp-content/uploads
+wp-content/blogs.dir/
+wp-content/upgrade/
+wp-content/backup-db/
+wp-content/updraft/
+wp-content/backupwordpress-*/
+wp-content/managewp/backups/
+wp-content/advanced-cache.php
+wp-content/wp-cache-config.php
+sitemap.xml
+sitemap.xml.gz
+*.log
+
+# @TODO writable paths
+wp-content/cache/
+wp-content/backups/
+
+# Avoid accidental modification of pantheon.upstream.yml in sites
+# created from this upstream
+pantheon.upstream.yml
+
+# Packages #
+############
+*.7z
+*.dmg
+*.gz
+*.bz2
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+*.tgz
+
+# Logs and databases #
+######################
+*.log
+*.sql
+
+# OS generated files #
+######################
+.DS_Store*
+ehthumbs.db
+Icon?
+Thumbs.db
+._*
+
+# Vim generated files #
+######################
+*.un~
+
+# SASS #
+##########
+.sass-cache
+
+############################################################
+# Adding customizations for Bluetext site creation script. #
+############################################################
+
+# Ignore everything in the root except the "wp-content" directory.
+/*
+!wp-content/
+
+# Ignore everything in the "wp-content" directory, except:
+# mu-plugins, plugins, and themes directories
+wp-content/*
+!wp-content/mu-plugins/
+!wp-content/plugins/
+!wp-content/themes/
+
+# Ignore all mu-plugins, plugins, and themes
+# unless explicitly whitelisted at the end of this file
+wp-content/mu-plugins/*
+wp-content/plugins/*
+wp-content/themes/*
+
+# Ignore all files starting with . or ~
+.*
+~*
+
+# Ignore node dependency directories (used by grunt)
+node_modules/
+
+# Ignore Editor files
+*.sublime-project
+*.sublime-workspace
+*.komodoproject

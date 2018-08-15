@@ -23,16 +23,49 @@ UUID=$(terminus site:lookup "$sitename")
 # Cloning the site down locally...
 git clone ssh://codeserver.dev."$UUID"@codeserver.dev."$UUID".drush.in:2222/~/repository.git "$sitename"
 
-echo "You can now log in to your new website at the URL below:"
-echo "https://dev-""$sitename"".pantheonsite.io/wp-login.php"
-
+# Moving into the new directory
+echo "Moving into the new directory."
 cd "$sitename"
+
+# Removing Pantheon's gitignore, and replacing it with our own...
+echo "Removing Pantheon's gitignore, and replacing it with our own."
+rm .gitignore
+
+cp ../gitignore/gitignore.txt .
+
+mv gitignore.txt .gitignore
+
+git add .gitignore
+
+git commit -m '$sitename-000: Overwriting pantheon gitignore file;'
+
+# Creating a repo in github and pushing up a change...
+echo "Creating a repo in github."
+echo "What is your Github username?"
+read githubusername
+
+curl -u "$githubusername" https://api.github.com/orgs/BluetextDC/repos -d '{"name":"'$repo'"}'
+
+git remote rename origin pantheon
+
+git remote add github https://github.com/BluetextDC/"$sitename".git
 
 mkdir html
 
 touch readme.txt
 
-sublime readme.txt
+git add .
+
+git commit -m '"$sitename"-000: Pushing up html directory;'
+
+git push pantheon master
+
+git push github master
+
+# sublime readme.txt
+
+echo "You can now log in to your new website at the URL below:"
+echo "https://dev-""$sitename"".pantheonsite.io/wp-login.php"
 
 # TODO
 # 1) Push commands for migrating changes back up to git repo;
