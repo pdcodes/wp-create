@@ -44,7 +44,7 @@ git remote add github https://github.com/BluetextDC/"$sitename".git
 echo "Copying composer.default.json and running composer install."
 cp ../composer/composer.default.json .
 mv composer.default.json composer.json
-eval "sed -i '' s/PROJECTNAME/$sitename/g ../composer/composer.json"
+eval "sed -i '' s/PROJECTNAME/$sitename/g composer.json"
 composer install
 cp ../acf/plugin/advanced-custom-fields-pro wp-content/plugins/
 
