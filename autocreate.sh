@@ -64,7 +64,7 @@ mkdir html
 
 touch html/readme.txt
 
-echo "Add html files here." > html/readme.txt
+echo "Add html source files and assets for prototyping here." > html/readme.txt
 
 echo "Cleaning up the git cache."
 
@@ -79,8 +79,6 @@ git commit -am ''$sitename'-002: Pushing only wp-content/ to Pantheon and Github
 git push pantheon develop
 
 git push github develop
-
-
 
 # sed -i '' 's/PROJECTNAME/wflow-test/g' composer.json
 
