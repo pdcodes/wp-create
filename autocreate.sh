@@ -44,8 +44,9 @@ git remote add github https://github.com/BluetextDC/"$sitename".git
 echo "Copying composer.default.json and running composer install."
 cp ../composer/composer.default.json .
 mv composer.default.json composer.json
-eval "sed -i '' s/PROJECTNAME/$sitename/g ../composer/composer.json"
+eval "sed -i '' s/PROJECTNAME/$sitename/g composer.json"
 composer install
+cp ../acf/plugin/advanced-custom-fields-pro wp-content/plugins/
 
 echo "Pushing changes to github."
 git add -A
@@ -57,17 +58,31 @@ git push github master
 echo "Moving into the wp-content/themes directory."
 cd wp-content/themes
 echo "Generating _s base theme and removing everything else."
-underscores -n "$friendlyname" -d "Custom theme for $friendlyname website." -g "$sitename" -a "Bluetext <technology@bluetext.com>" -u "https://bluetext.com" -s -k
-shopt -s extglob && rm !($friendlyname || index.php)
+underscores -n "$friendlyname" -d "Custom theme for $friendlyname website." -g "$friendlyname" -a "Bluetext <technology@bluetext.com>" -u "https://bluetext.com" -s -k
+shopt -s extglob
+rm -rf !("$friendlyname" | index.php)
+
+# Adding to base theme configuration...
+echo "Setting up the $friendlyname theme per Bluetext standard architecture."
+cd "$friendlyname"
+mkdir fonts
+mkdir components
+mkdir scss
+mkdir js
+mkdir js/gulp
+mkdir acf-json
+cp ../../../../acf/base-configs/acf-export-base.json acf-json/
+cd ..
 
 echo "Pushing changes to github."
 git add -A
-git commit -am ''$sitename'-002: Adding _s base theme.'
+git commit -am ''$sitename'-002: Adding '$friendlyname' theme from base _s theme.'
 git push pantheon master
 git push github master 
 
 # Setting up the develop branch...
 echo "Creating our branch for development."
+cd ../..
 git checkout -b develop
 
 # Removing Pantheon's gitignore, and replacing it with our own...
@@ -76,7 +91,7 @@ rm .gitignore
 cp ../gitignore/gitignore.txt .
 mv gitignore.txt .gitignore
 git add .gitignore
-git commit -m ''$sitename'-001: Overwriting pantheon gitignore file.'
+git commit -m ''$sitename'-003: Overwriting pantheon gitignore file.'
 
 echo "Adding the html/ directory."
 
@@ -87,10 +102,11 @@ echo "Add html source files and assets for prototyping here." > html/readme.txt
 echo "Cleaning up the git cache."
 git rm -r --cached .
 git add -A
-git commit -am ''$sitename'-002: Pushing only wp-content/ to Pantheon and Github remotes.'
+git commit -am ''$sitename'-004: Pushing only wp-content/ to Pantheon and Github remotes.'
 git push github develop
 
-# sublime readme.txt
+# Now let's set up the Pantheon site...
+terminus remote:wp "$sitename".dev -- theme activate "$friendlyname"
 
 # Updating the WP admin password...
 terminus remote:wp "$sitename".dev -- user update "$site_email" --user_pass=Bluetext1 --skip-email
