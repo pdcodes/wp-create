@@ -2,9 +2,10 @@
 # Custom .gitignore logic for Bluetext site creation process #
 ##############################################################
 
-# Ignore everything in the root except the "wp-content" directory.
+# Ignore everything in the root except the "wp-content" and "html" directories.
 /*
 !wp-content/
+!html/
 
 # Ignore everything in the "wp-content" directory, except:
 # mu-plugins, plugins, and themes directories

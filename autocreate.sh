@@ -48,13 +48,23 @@ echo "Creating a repo in github."
 
 curl -u "$githubusername" https://api.github.com/orgs/BluetextDC/repos -d '{"name":"'$sitename'"}'
 
+echo "Setting up our remotes."
+
 git remote rename origin pantheon
 
 git remote add github https://github.com/BluetextDC/"$sitename".git
 
+echo "Adding the html/ directory."
+
 mkdir html
 
 touch html/readme.txt
+
+echo "Add html files here." > html/readme.txt
+
+echo "Cleaning up the git cache."
+
+git rm -r --cached .
 
 git add .
 
