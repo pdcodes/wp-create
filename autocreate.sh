@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set timeout -1
+
 # First thing's first, let's get some info...
 echo "Hey there techy, let's build you a WP site! For starters, we need to get a bit of information."
 echo "What is the machine-readable name of the site you'd like to create? This name should be formatted in all lowercase characters with no spaces."
