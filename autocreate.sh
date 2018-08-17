@@ -60,13 +60,19 @@ git push github master
 echo "Moving into the wp-content/themes directory."
 cd wp-content/themes
 echo "Generating _s base theme and removing everything else."
-eval "underscores -n $friendlyname -d 'Custom theme for $friendlyname website.' -g $friendlyname -a Bluetext <technology@bluetext.com> -u https://bluetext.com -s -k"
-shopt -s extglob
-rm -rf !("$friendlyname" | index.php)
+underscores -n "$sitename"
+rm -rf twentyten
+rm -rf twentyeleven
+rm -rf twentytwelve
+rm -rf twentythirteen
+rm -rf twentyfourteen
+rm -rf twentyfifteen
+rm -rf twentysixteen
+rm -rf twentyseventeen
 
 # Adding to base theme configuration...
 echo "Setting up the $friendlyname theme per Bluetext standard architecture."
-cd "$friendlyname"
+cd "$sitename"
 mkdir fonts
 mkdir components
 mkdir js/gulp
@@ -110,6 +116,10 @@ terminus remote:wp "$sitename".dev -- theme activate "$friendlyname"
 
 # Updating the WP admin password...
 terminus remote:wp "$sitename".dev -- user update "$site_email" --user_pass=Bluetext1 --skip-email
+
+# Installing all plugins...
+terminus remote:wp "$sitename".dev -- plugin activate --all
+terminus remote:wp "$sitename".dev -- cache flush
 
 echo "You can now log in to your using the information below:"
 echo "https://dev-""$sitename"".pantheonsite.io/wp-login.php"
