@@ -60,7 +60,7 @@ git push github master
 echo "Moving into the wp-content/themes directory."
 cd wp-content/themes
 echo "Generating _s base theme and removing everything else."
-underscores -n "$friendlyname" -d "Custom theme for $friendlyname website." -g "$friendlyname" -a "Bluetext <technology@bluetext.com>" -u "https://bluetext.com" -s -k
+eval "underscores -n $friendlyname -d 'Custom theme for $friendlyname website.' -g $friendlyname -a Bluetext <technology@bluetext.com> -u https://bluetext.com -s -k"
 shopt -s extglob
 rm -rf !("$friendlyname" | index.php)
 
@@ -69,8 +69,6 @@ echo "Setting up the $friendlyname theme per Bluetext standard architecture."
 cd "$friendlyname"
 mkdir fonts
 mkdir components
-mkdir scss
-mkdir js
 mkdir js/gulp
 mkdir acf-json
 cp ../../../../acf/base-configs/acf-export-base.json acf-json/
@@ -93,7 +91,7 @@ rm .gitignore
 cp ../gitignore/gitignore.txt .
 mv gitignore.txt .gitignore
 git add .gitignore
-git commit -m ''$sitename'-003: Overwriting pantheon gitignore file.'
+git commit -m ''$sitename'-003: Overwriting pantheon gitignore file on develop branch.'
 
 echo "Adding the html/ directory."
 
@@ -104,7 +102,7 @@ echo "Add html source files and assets for prototyping here." > html/readme.txt
 echo "Cleaning up the git cache."
 git rm -r --cached .
 git add -A
-git commit -am ''$sitename'-004: Pushing only wp-content/ to Pantheon and Github remotes.'
+git commit -am ''$sitename'-004: Pushing only wp-content/ to Github remote.'
 git push github develop
 
 # Now let's set up the Pantheon site...

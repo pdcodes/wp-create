@@ -60,6 +60,16 @@ git push github master
 echo "Moving into the wp-content/themes directory."
 cd wp-content/themes
 echo "Generating _s base theme and removing everything else."
-underscores -n "$friendlyname" -d "Custom theme for $friendlyname website." -g "$friendlyname" -a "Bluetext <technology@bluetext.com>" -u "https://bluetext.com" -s -k
+eval "underscores -n $friendlyname -d 'Custom theme for $friendlyname website.' -g $friendlyname -a Bluetext <technology@bluetext.com> -u https://bluetext.com -s -k"
 shopt -s extglob
 rm -rf !("$friendlyname" | index.php)
+
+# Adding to base theme configuration...
+echo "Setting up the $friendlyname theme per Bluetext standard architecture."
+cd "$friendlyname"
+mkdir fonts
+mkdir components
+mkdir js/gulp
+mkdir acf-json
+cp ../../../../acf/base-configs/acf-export-base.json acf-json/
+cd ..
