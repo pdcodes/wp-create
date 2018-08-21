@@ -3,8 +3,7 @@
 set timeout -1
 
 # First thing's first, let's get some info...
-echo "Hey there techy, let's build you a WP site! For starters, we need to get a bit of information."
-echo "What is the machine-readable name of the site you'd like to create? This name should be formatted in all lowercase characters with no spaces."
+echo "Hey there techy, let's build you a WP site! For starters, we need to get a bit of information. What is the machine-readable name of the site you'd like to create? This name should be formatted in all lowercase characters with no spaces."
 read sitename
 
 echo "Enter the friendly name of the site below:"
@@ -76,6 +75,7 @@ cd "$sitename"
 mkdir fonts
 mkdir components
 mkdir js/gulp
+cp ../../../../gulp/gulpfile.js js/gulp/gulpfile.js
 mkdir acf-json
 cp ../../../../acf/base-configs/acf-export-base.json acf-json/
 cd ..
@@ -112,17 +112,18 @@ git commit -am ''$sitename'-004: Pushing only wp-content/ to Github remote.'
 git push github develop
 
 # Now let's set up the Pantheon site...
-terminus remote:wp "$sitename".dev -- theme activate "$friendlyname"
+terminus remote:wp "$sitename".dev -- theme activate "$sitename"
 
 # Updating the WP admin password...
 terminus remote:wp "$sitename".dev -- user update "$site_email" --user_pass=Bluetext1 --skip-email
 
 # Installing all plugins...
+echo "Flushing caches!"
 terminus remote:wp "$sitename".dev -- plugin activate --all
 terminus remote:wp "$sitename".dev -- cache flush
 
 echo "You can now log in to your using the information below:"
-echo "https://dev-""$sitename"".pantheonsite.io/wp-login.php"
+echo "https://dev-""$sitename"".pantheonsite.io/login"
 echo "Password: Bluetext1"
 
 # TODO
