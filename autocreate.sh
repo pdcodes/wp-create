@@ -59,7 +59,7 @@ git push github master
 echo "Moving into the wp-content/themes directory."
 cd wp-content/themes
 echo "Generating _s base theme and removing everything else."
-underscores -n "$sitename"
+underscores
 rm -rf twentyten
 rm -rf twentyeleven
 rm -rf twentytwelve
