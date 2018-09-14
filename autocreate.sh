@@ -78,7 +78,7 @@ mkdir js/gulp
 cp ../../../../gulp/gulpfile.js js/gulp/gulpfile.js
 mkdir acf-json
 cp ../../../../acf/base-configs/acf-export-base.json acf-json/
-cd ..
+cd ../../..
 
 echo "Pushing changes to github."
 git add -A
@@ -87,17 +87,17 @@ git push pantheon master
 git push github master 
 
 # Setting up the develop branch...
-echo "Creating our branch for development."
-cd ../..
-git checkout -b develop
+# echo "Creating our branch for development."
+# cd ../..
+# git checkout -b develop
 
 # Removing Pantheon's gitignore, and replacing it with our own...
-echo "Removing Pantheon's gitignore, and replacing it with our own."
-rm .gitignore
-cp ../gitignore/gitignore.txt .
-mv gitignore.txt .gitignore
-git add .gitignore
-git commit -m ''$sitename'-003: Overwriting pantheon gitignore file on develop branch.'
+# echo "Removing Pantheon's gitignore, and replacing it with our own."
+# rm .gitignore
+# cp ../gitignore/gitignore.txt .
+# mv gitignore.txt .gitignore
+# git add .gitignore
+# git commit -m ''$sitename'-003: Overwriting pantheon gitignore file on develop branch.'
 
 echo "Adding the html/ directory."
 
@@ -105,11 +105,11 @@ mkdir html
 touch html/readme.txt
 echo "Add html source files and assets for prototyping here." > html/readme.txt
 
-echo "Cleaning up the git cache."
-git rm -r --cached .
-git add -A
-git commit -am ''$sitename'-004: Pushing only wp-content/ to Github remote.'
-git push github develop
+# echo "Cleaning up the git cache."
+# git rm -r --cached .
+# git add -A
+# git commit -am ''$sitename'-004: Pushing only wp-content/ to Github remote.'
+# git push github develop
 
 # Now let's set up the Pantheon site...
 terminus remote:wp "$sitename".dev -- theme activate "$sitename"
